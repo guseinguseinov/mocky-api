@@ -8,14 +8,13 @@ const Header = () => (
         <div className='header'>
             <div>
                 <Link to="">
-                    <h2>Mocky-api</h2>
+                    <h2>Mocky</h2>
                 </Link>
             </div>
 
             <div className='navbar'>
-                <Link to="/">Home</Link>
-                <Link to="/my-mocks">My Mocks</Link>
-                <Link to="/mock/new">New Mock </Link>
+                <Link className='my-mocks' to="/my-mocks">My Mocks</Link>
+                <Link className='new-mock' to="/mock/new">New Mock </Link>
             </div>
         </div >
     </>

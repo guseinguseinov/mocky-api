@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Header from './components/Header/Header';
+import Home from './components/Home/Home';
 import './styles.css';
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
     <Routes>
       <Route index element={<Navigate to="/home" />} />
       {/* <Route path="/my-mocks" element /> */}
-      <Route path="/home" element={<Header />} />
+      <Route path="/home" element={<Home />} />
     </Routes>
 
   );

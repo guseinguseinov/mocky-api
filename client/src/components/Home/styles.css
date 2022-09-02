@@ -1,0 +1,38 @@
+h1 {
+    text-align: center;
+    font-size: 60px;
+    margin: 60px auto;
+}
+
+p {
+    font-size: 20px;
+}
+
+.container {
+    margin: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.subHeader {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.additionalInfo {
+    background-color: #252525;
+    padding: 20px;
+}
+
+.additionalInfo-main {
+    background-color: #202020;
+    color: #fff;
+    padding: 50px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.new-mock {
+    color: #fff;
+    background-color: #2374ab;
+}
