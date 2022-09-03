@@ -1,14 +1,40 @@
 import { Link } from "react-router-dom";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
-
+import axios from "../../lib/axois";
 import './styles.css';
+import { useEffect, useState } from "react";
+import { Space, Spin } from 'antd';
+
+const Spinner = () => (
+    <Space size="middle">
+        <Spin size="small" />
+        <Spin />
+        <Spin size="large" />
+    </Space>
+);
+
+const fetchUser = () => {
+    return axios.get('/').then(res => res.data);
+}
+
+
 
 function Home() {
+
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+        axios.get('/').then(res => {
+            setData(res.data)
+        });
+    });
+
+
     return (
         <>
             <Header />
-
+            <Spinner />
             <h1>Mocky</h1>
 
             <div className="container">
