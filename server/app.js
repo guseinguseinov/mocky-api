@@ -2,6 +2,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import mongoose from 'mongoose';
 import { config } from "dotenv";
+import cors from 'cors';
 
 import errorHandler from './middlewares/errorHandler.js';
 import homeRoute from './routers/homeRoute.js';

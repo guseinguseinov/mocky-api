@@ -4,37 +4,36 @@ import Header from "../Header/Header";
 import axios from "../../lib/axois";
 import './styles.css';
 import { useEffect, useState } from "react";
-import { Space, Spin } from 'antd';
 
-const Spinner = () => (
-    <Space size="middle">
-        <Spin size="small" />
-        <Spin />
-        <Spin size="large" />
-    </Space>
-);
+import {
+    MenuFoldOutlined,
+    MenuUnfoldOutlined,
+    UploadOutlined,
+    UserOutlined,
+    VideoCameraOutlined,
+} from '@ant-design/icons';
+import { Layout, Menu } from 'antd';
 
-const fetchUser = () => {
-    return axios.get('/').then(res => res.data);
-}
+
 
 
 
 function Home() {
 
     const [data, setData] = useState(null);
-
+    async function fetchBlogs() {
+        const response = await fetch('http://localhost:8080/')
+        const blogs = await response.json();
+        setData(blogs);
+    }
     useEffect(() => {
-        axios.get('/').then(res => {
-            setData(res.data)
-        });
-    });
+        fetchBlogs();
+    }, []);
 
 
     return (
         <>
             <Header />
-            <Spinner />
             <h1>Mocky</h1>
 
             <div className="container">

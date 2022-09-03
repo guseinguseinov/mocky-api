@@ -6,6 +6,7 @@ import crypto from 'crypto';
 const homeCtrl = {
     async getHome(req, res) {
         let userToken;
+        console.log(req.cookies)
         if (!req.cookies.userToken) {
             userToken = crypto.randomBytes(64).toString('base64');
             res.cookie('userToken', userToken, {
