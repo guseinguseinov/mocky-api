@@ -7,7 +7,7 @@
     "server-dev": "npm run dev --prefix server",
     "server": "npm run start --prefix server",
     "client": "npm run start --prefix client",
-    "start": "npm-run-all --parallel server client"
+    "start": "npm-run-all --parallel server-dev client"
   },
   "repository": {
     "type": "git",

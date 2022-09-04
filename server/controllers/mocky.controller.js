@@ -1,3 +1,4 @@
+import { parse } from "dotenv";
 import MockyModel from "../models/Mocky.js";
 import UserModel from "../models/User.js";
 import generateJson from "../utils/resGen.js";
@@ -9,9 +10,28 @@ const mockyCtrl = {
         const user = await UserModel.findOne({ cookieToken: userToken });
         if (!user) return res.status(404).json(generateJson(404, "User not found!", null));
 
+        const { httpCode, resContentType, charset, httpHeader, httpResBody } = req.body;
+
+        let httpHeaderJson;
+        if (httpHeader) {
+            httpHeaderJson = JSON.parse(httpHeader);
+        }
+
+        let httpResBodyJson;
+        if (httpResBody && resContentType == 'application/json') {
+            httpResBodyJson = JSON.parse(httpResBody);
+        } else {
+            httpResBodyJson = httpResBody;
+        }
+
+
         const newMock = await MockyModel({
             userId: user._id,
-            ...req.body
+            httpCode,
+            resContentType,
+            charset,
+            httpHeader: httpHeaderJson,
+            httpResBody: httpResBodyJson
         });
 
         await newMock.save();
@@ -47,6 +67,10 @@ const mockyCtrl = {
         if (!mocky) return res.status(404).json(generateJson(404, "No mocky found!", null));
 
         let resBody = mocky.httpResBody;
+
+        let obj = mocky.httpHeader;
+
+        console.log(obj);
 
         res.status(mocky.httpCode)
             .set({

@@ -1,20 +1,9 @@
 import { Link } from "react-router-dom";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
-import axios from "../../lib/axois";
+import axios from "../../lib/axios";
 import './styles.css';
 import { useEffect, useState } from "react";
-
-import {
-    MenuFoldOutlined,
-    MenuUnfoldOutlined,
-    UploadOutlined,
-    UserOutlined,
-    VideoCameraOutlined,
-} from '@ant-design/icons';
-import { Layout, Menu } from 'antd';
-
-
 
 
 
@@ -22,9 +11,10 @@ function Home() {
 
     const [data, setData] = useState(null);
     async function fetchBlogs() {
-        const response = await fetch('http://localhost:8080/')
-        const blogs = await response.json();
-        setData(blogs);
+        const { data } = await axios.get('/')
+        // setData();
+        console.log(data);
+        localStorage.setItem("userToken", data.data)
     }
     useEffect(() => {
         fetchBlogs();
