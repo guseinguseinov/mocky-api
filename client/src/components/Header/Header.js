@@ -1,23 +1,30 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Menu, Layout } from 'antd';
+import { Link, Navigate } from 'react-router-dom';
 import './styles.css';
 
+const { Header } = Layout;
 
-const Header = () => (
+const CustomHeader = () => (
     <>
-        <div className='header'>
-            <div>
-                <Link to="/home">
-                    <h2>Mocky</h2>
-                </Link>
-            </div>
+        <Header>
+            <Menu theme="dark" mode="horizontal">
+                <Menu.Item key={1}  >
+                    MOCKY
+                    <Link to="/home" />
+                </Menu.Item>
 
-            <div className='navbar'>
-                <Link className='my-mocks' to="/my-mocks">My Mocks</Link>
-                <Link className='new-mock' to="/mock/new">New Mock </Link>
-            </div>
-        </div >
+                <Menu.Item key={2} >
+                    MANAGE MY MOCKS
+                    <Link to="/my-mocks" />
+                </Menu.Item>
+                <Menu.Item key={3}>
+                    NEW MOCK
+                    <Link to="/mock/new" />
+                </Menu.Item>
+            </Menu>
+        </Header>
     </>
 );
 
-export default Header;
+export default CustomHeader;

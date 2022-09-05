@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from './components/Home/Home';
 import MockDetails from './components/MockDetails/Mockdetails';
-import Mocks from './components/Mocks/Mocks';
+import Mocks from './components/Mocks/';
 import NewMock from './components/NewMock/';
 import './styles.css';
 

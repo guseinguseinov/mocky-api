@@ -1,7 +1,7 @@
 import { Button, Form, Input, message, Select } from 'antd';
-import axios from '../../lib/axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from '../../lib/axios';
 
 const { TextArea } = Input;
 
@@ -25,6 +25,7 @@ const responseBodyPlaceHolder = `{
 const NewMockForm = () => {
     const navigate = useNavigate();
     const [submitting, setSubmitting] = useState(false);
+
 
     async function onFinish(values) {
 
@@ -52,7 +53,7 @@ const NewMockForm = () => {
             setSubmitting(true)
             const res = await axios.post('mocky/add', values)
             message.success("New mocky api generated!")
-            // navigate('/my-mocks');
+            navigate('/my-mocks');
         } catch (error) {
             console.log(error.response.data.message);
             message.error(error.response.data.message);

@@ -32,7 +32,27 @@ p {
     justify-content: space-around;
 }
 
+.additionalInfo-main h3 {
+    color: #fff;
+}
+
 .new-mock {
     color: #fff;
     background-color: #2374ab;
+}
+
+.main {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+@media screen and (max-width:570px) {
+
+    .container,
+    .additionalInfo-main {
+        flex-direction: column;
+    }
+
 }
