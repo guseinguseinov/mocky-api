@@ -10,7 +10,7 @@ const mockyCtrl = {
         const user = await UserModel.findOne({ cookieToken: userToken });
         if (!user) return res.status(404).json(generateJson(404, "User not found!", null));
 
-        const { httpCode, resContentType, charset, httpHeader, httpResBody } = req.body;
+        const { name = null, httpCode, resContentType, charset, httpHeader, httpResBody } = req.body;
 
         let httpHeaderJson;
         if (httpHeader) {
@@ -27,6 +27,7 @@ const mockyCtrl = {
 
         const newMock = await MockyModel({
             userId: user._id,
+            name,
             httpCode,
             resContentType,
             charset,

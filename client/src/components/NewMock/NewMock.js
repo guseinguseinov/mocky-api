@@ -80,6 +80,14 @@ const NewMockForm = () => {
                 autoComplete="off"
             >
                 <Form.Item
+                    label="Mocky API Name"
+                    name="name"
+                    extra="Name for Your mocky API (Optional)"
+
+                >
+                    <Input placeholder='Super Mocky API' />
+                </Form.Item>
+                <Form.Item
                     label="HTTP Status"
                     name="httpCode"
                     rules={[

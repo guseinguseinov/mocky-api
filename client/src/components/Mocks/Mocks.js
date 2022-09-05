@@ -1,21 +1,75 @@
 import axios from "../../lib/axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { List } from "antd";
+import { Table, Tag, Space } from "antd";
+import { FileSearchOutlined, EditOutlined } from '@ant-design/icons';
+import { timeAgo } from '../../lib/timeAgo';
+
+
+const columns = [
+    {
+        title: 'Name',
+        dataIndex: 'name',
+        key: 'name',
+        render: (text) => <Link to={"/mock/" + text}>{text}</Link>,
+    },
+    {
+        title: 'Description',
+        dataIndex: 'description',
+        key: 'description',
+        className: "description"
+    },
+    {
+        title: 'Date',
+        dataIndex: 'date',
+        key: 'Date',
+    },
+    {
+        title: 'Tags',
+        key: 'tags',
+        dataIndex: 'tags',
+        render: (_, { tags }) => (
+            <>
+                {tags.map((tag) => {
+                    let color = tag.length > 5 ? 'geekblue' : 'green';
+
+                    return (
+                        <Tag color={color} key={tag}>
+                            {tag}
+                        </Tag>
+                    );
+                })}
+            </>
+        ),
+    },
+    {
+        title: 'Action',
+        key: 'action',
+        render: (_, record) => (
+            <Space style={{ "display": "flex", "justifyContent": "space-between" }} size="middle">
+                <a href={"http://localhost:8080/mocky/get/" + record.name}><FileSearchOutlined /></a>
+                <a><EditOutlined /></a>
+                <a>Delete</a>
+            </Space>
+        ),
+    },
+];
 
 
 
 function MyMocks() {
 
-    const [mocks, setMocks] = useState([]);
+    let [mocks, setMocks] = useState([]);
     const [submitting, setSubmitting] = useState(false);
 
     useEffect(() => {
         async function getMocks() {
             setSubmitting(true)
             const { data } = await axios.get('mocky');
+            console.log(data)
             setMocks(data.data);
             setSubmitting(false);
+
         }
         getMocks();
     }, []);
@@ -25,20 +79,16 @@ function MyMocks() {
     return (
         <>
             <div className="container">
-                <List
-                    loading={submitting}
-                    itemLayout="vertical"
-                    dataSource={mocks}
-                    renderItem={mock => (
-
-                        <List.Item key={mock._id}>
-                            <Link to={'/mock/' + mock._id}>{mock.mocksUrl}</Link>
-                            <p>{mock.httpCode}, {mock.resContentType}, {mock.charset}</p>
-                            <a href={"http://localhost:8080/mocky/get/" + mock.mocksUrl} target="_blank">Go to Api</a>
-                        </List.Item>
-                    )
+                <Table style={{ maxWidth: "1000px" }} loading={submitting} columns={columns} dataSource={mocks.map(mock => {
+                    console.log(mock._id);
+                    return {
+                        key: mock._id,
+                        name: mock.name ? mock.name : mock._id,
+                        description: JSON.stringify(mock.httpResBody),
+                        date: timeAgo.format(new Date(mock.createdAt)),
+                        tags: [mock.httpCode, mock.charset, mock.resContentType],
                     }
-                />
+                })} />
             </div>
         </>
     )

@@ -5,7 +5,7 @@ function Footer() {
     return (
         <>
             <div>
-                <p className="footer-p">© 2020 | Made by <a className="gusein" target="_blank" href="https://github.com/guseinguseinov">Gusein</a></p>
+                <p className="footer-p">© 2022 | Made by <a className="gusein" target="_blank" href="https://github.com/guseinguseinov">Gusein</a></p>
             </div>
         </>
     )

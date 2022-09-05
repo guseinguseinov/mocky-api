@@ -13,7 +13,7 @@ function Home() {
         async function authenticateToken() {
             const { data } = await axios.get('/');
             setToken(data.data);
-            localStorage.setItem("userToken", token)
+            localStorage.setItem("userToken", data.data);
         }
 
         authenticateToken();

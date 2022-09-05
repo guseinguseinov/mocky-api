@@ -36,6 +36,7 @@ const MockySchema = new mongoose.Schema({
         type: "ObjectId",
         ref: "users",
     },
+    name: String,
     mocksUrl: {
         type: String,
         default: () => crypto.randomBytes(64).toString('base64url')

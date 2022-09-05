@@ -1,1 +1,5 @@
 .container {}
+
+.description {
+    max-width: 150px;
+}
