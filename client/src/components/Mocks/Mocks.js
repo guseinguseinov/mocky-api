@@ -1,17 +1,16 @@
 import axios from "../../lib/axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Table, Tag, Space } from "antd";
-import { FileSearchOutlined, EditOutlined } from '@ant-design/icons';
+import { Table, Tag, Space, Button, Popover } from "antd";
+import { FileSearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { timeAgo } from '../../lib/timeAgo';
-
 
 const columns = [
     {
         title: 'Name',
         dataIndex: 'name',
         key: 'name',
-        render: (text) => <Link to={"/mock/" + text}>{text}</Link>,
+        render: (_, text) => <Link to={"/mock/" + text.id}>{text.name}</Link>,
     },
     {
         title: 'Description',
@@ -47,9 +46,9 @@ const columns = [
         key: 'action',
         render: (_, record) => (
             <Space style={{ "display": "flex", "justifyContent": "space-between" }} size="middle">
-                <a href={"http://localhost:8080/mocky/get/" + record.name}><FileSearchOutlined /></a>
-                <a><EditOutlined /></a>
-                <a>Delete</a>
+                <Button> <a href={"http://localhost:8080/mocky/get/" + record.mocksUrl}><FileSearchOutlined /></a></Button>
+                <Button type="dashed"><EditOutlined /></Button>
+                <Button danger><DeleteOutlined /></Button>
             </Space>
         ),
     },
@@ -64,13 +63,21 @@ function MyMocks() {
 
     useEffect(() => {
         async function getMocks() {
-            setSubmitting(true)
+            setSubmitting(true);
             const { data } = await axios.get('mocky');
-            console.log(data)
             setMocks(data.data);
             setSubmitting(false);
 
         }
+
+        async function deleteMock(id) {
+            setSubmitting(true);
+            const data = await axios.delete('mocky/delete' + id);
+
+            getMocks();
+            setSubmitting(false);
+        }
+
         getMocks();
     }, []);
 
@@ -80,15 +87,22 @@ function MyMocks() {
         <>
             <div className="container">
                 <Table style={{ maxWidth: "1000px" }} loading={submitting} columns={columns} dataSource={mocks.map(mock => {
-                    console.log(mock._id);
+
+                    let popoverText = !JSON.stringify(mock.httpResBody) ? "No Response Body" : JSON.stringify(mock.httpResBody);
                     return {
                         key: mock._id,
+                        id: mock._id,
+                        mocksUrl: mock.mocksUrl,
                         name: mock.name ? mock.name : mock._id,
-                        description: JSON.stringify(mock.httpResBody),
+                        description: <Popover placement="bottom" content={popoverText}><Button>Hover To See</Button></Popover>,
                         date: timeAgo.format(new Date(mock.createdAt)),
                         tags: [mock.httpCode, mock.charset, mock.resContentType],
                     }
-                })} />
+                })}
+                >
+
+                </Table>
+
             </div>
         </>
     )

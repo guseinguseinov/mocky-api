@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from './components/Home/Home';
-import MockDetails from './components/MockDetails/Mockdetails';
+import MockDetails from './components/MockDetails/index';
 import Mocks from './components/Mocks/';
 import NewMock from './components/NewMock/';
 import './styles.css';

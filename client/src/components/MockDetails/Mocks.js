@@ -1,6 +1,6 @@
 
 
-function MockDetails() {
+function Mocks() {
     return (
         <>
             <h1>Hello from mock api details</h1>
@@ -8,4 +8,4 @@ function MockDetails() {
     )
 }
 
-export default MockDetails;
+export default Mocks;
