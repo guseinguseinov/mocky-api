@@ -46,9 +46,9 @@ const columns = [
         key: 'action',
         render: (_, record) => (
             <Space style={{ "display": "flex", "justifyContent": "space-between" }} size="middle">
-                <Button> <a href={"http://localhost:8080/mocky/get/" + record.mocksUrl}><FileSearchOutlined /></a></Button>
-                <Button type="dashed"><EditOutlined /></Button>
-                <Button danger><DeleteOutlined /></Button>
+                <a href={"http://localhost:8080/mocky/get/" + record.mocksUrl}><Button> <FileSearchOutlined /></Button></a>
+                <Link to={"/mock/" + record.id}><Button type="dashed"> <EditOutlined /></Button></Link>
+                <Link to={"/mock/delete/" + record.id}><Button danger><DeleteOutlined /></Button></Link>
             </Space>
         ),
     },
@@ -68,14 +68,6 @@ function MyMocks() {
             setMocks(data.data);
             setSubmitting(false);
 
-        }
-
-        async function deleteMock(id) {
-            setSubmitting(true);
-            const data = await axios.delete('mocky/delete' + id);
-
-            getMocks();
-            setSubmitting(false);
         }
 
         getMocks();

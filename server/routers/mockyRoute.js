@@ -10,5 +10,5 @@ mockyRoute.get('/', authenticateToken, catchError(mockyCtrl.getMocks));
 mockyRoute.get('/get/:mocksUrl', catchError(mockyCtrl.getMockUrl));
 mockyRoute.get('/:id', authenticateToken, catchError(mockyCtrl.getSingleMock));
 mockyRoute.delete('/delete/:id', authenticateToken, catchError(mockyCtrl.deleteMock));
-
+mockyRoute.patch('/edit/:id', authenticateToken, catchError(mockyCtrl.editMock));
 export default mockyRoute;

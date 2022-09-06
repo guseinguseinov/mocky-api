@@ -52,15 +52,20 @@ const mockyCtrl = {
     },
     async getSingleMock(req, res) {
         const { userToken } = req.cookies;
-
         const user = await UserModel.findOne({ cookieToken: userToken });
         if (!user) return res.status(404).json(generateJson(404, "User not found!", null));
-
-        const mocky = await MockyModel.findById(req.params.id);
-
-        if (!mocky) return res.status(404).json(generateJson(404, "No mocky found!", null));
-
+        let mocky;
+        try {
+            mocky = await MockyModel.findById(req.params.id);
+        }
+        catch (error) {
+            return res.status(404).json(generateJson(404, "No mocky found!", null))
+        }
         res.status(200).json(generateJson(200, null, mocky));
+
+
+        // if (!mocky) return;
+
     },
     async getMockUrl(req, res) {
         const mocky = await MockyModel.findOne({ mocksUrl: req.params.mocksUrl });
@@ -68,11 +73,6 @@ const mockyCtrl = {
         if (!mocky) return res.status(404).json(generateJson(404, "No mocky found!", null));
 
         let resBody = mocky.httpResBody;
-
-        let obj = mocky.httpHeader;
-
-        console.log(obj);
-
         res.status(mocky.httpCode)
             .set({
                 'Content-Type': mocky.resContentType,
@@ -86,12 +86,37 @@ const mockyCtrl = {
         res.send(resBody.content);
     },
     async editMock(req, res) {
-        // finish this
+        const { userToken } = req.cookies;
+        const user = await UserModel.findOne({ cookieToken: userToken });
+        if (!user) return res.status(404).json(generateJson(404, "User not found!", null));
+
+        let { name = null, httpCode, resContentType, charset, httpHeader = null, httpResBody = "" } = req.body;
+
+        if (httpHeader) {
+            httpHeader = JSON.parse(httpHeader);
+        }
+
+        if (httpResBody && resContentType == 'application/json') {
+            httpResBody = JSON.parse(httpResBody);
+        } else {
+            httpResBody = { content: httpResBody };
+        }
+
+        await MockyModel.findByIdAndUpdate(req.params.id, {
+            name,
+            httpCode,
+            resContentType,
+            charset,
+            httpHeader: httpHeader ? httpHeader : '',
+            httpResBody: httpResBody ? httpResBody : '',
+        });
+        res.status(200).json(generateJson(200, 'Your mock edited', null));
+
     },
     async deleteMock(req, res) {
         const mocky = await MockyModel.findByIdAndDelete(req.params.id);
 
-        if (!mocky) return res.status(404).json(generateJson(404, "No mocky found!", null));
+        // if (!mocky) return res.status(404).json(generateJson(404, "No mocky found!", null));
 
         res.status(404).json(generateJson(404, 'Mock deleted successfully!', null));
     }
