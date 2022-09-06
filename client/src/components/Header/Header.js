@@ -8,7 +8,7 @@ const { Header } = Layout;
 const CustomHeader = () => (
     <>
         <Header>
-            <Menu theme="dark" mode="horizontal">
+            <Menu style={{ display: "flex", justifyContent: "center" }} theme="dark" mode="horizontal">
                 <Menu.Item key={1}  >
                     MOCKY
                     <Link to="/home" />
