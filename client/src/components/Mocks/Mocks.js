@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Table, Tag, Space, Button, Popover } from "antd";
 import { FileSearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { timeAgo } from '../../lib/timeAgo';
+import './styles.css';
 
 const columns = [
     {
@@ -46,7 +47,7 @@ const columns = [
         key: 'action',
         render: (_, record) => (
             <Space style={{ "display": "flex", "justifyContent": "space-between" }} size="middle">
-                <a href={"http://localhost:8080/mocky/get/" + record.mocksUrl}><Button> <FileSearchOutlined /></Button></a>
+                <a href={`${process.env.REACT_APP_BACKEND_URL}/mocky/get/` + record.mocksUrl}><Button> <FileSearchOutlined /></Button></a>
                 <Link to={"/mock/" + record.id}><Button type="dashed"> <EditOutlined /></Button></Link>
                 <Link to={"/mock/delete/" + record.id}><Button danger><DeleteOutlined /></Button></Link>
             </Space>
@@ -67,19 +68,15 @@ function MyMocks() {
             const { data } = await axios.get('mocky');
             setMocks(data.data);
             setSubmitting(false);
-
         }
-
         getMocks();
     }, []);
 
-    // TODO FINISH IT WITH TABLE 
 
     return (
         <>
             <div className="container">
-                <Table style={{ maxWidth: "1000px" }} loading={submitting} columns={columns} dataSource={mocks.map(mock => {
-
+                <Table loading={submitting} columns={columns} dataSource={mocks.map(mock => {
                     let popoverText = !JSON.stringify(mock.httpResBody) ? "No Response Body" : JSON.stringify(mock.httpResBody);
                     return {
                         key: mock._id,

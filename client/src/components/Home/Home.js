@@ -4,6 +4,7 @@ import CustomHeader from "../Header/Header";
 import axios from "../../lib/axios";
 import './styles.css';
 import { useEffect, useState } from "react";
+import getCookie from "../../lib/cookie";
 
 
 function Home() {
@@ -13,13 +14,13 @@ function Home() {
         async function authenticateToken() {
             const { data } = await axios.get('/');
             setToken(data.data);
-            localStorage.setItem("userToken", data.data);
         }
 
-        authenticateToken();
+        const token = getCookie();
+        if (!token) {
+            authenticateToken();
+        }
     }, []);
-
-
 
     return (
         <>
@@ -27,7 +28,7 @@ function Home() {
                 <CustomHeader />
                 <h1>Mocky</h1>
 
-                <div className="container">
+                <div className="about">
                     <h2 className="subHeader">API Mocks for Free</h2>
                     <p>Don't wait for the backend to be ready,
                         <br /> generate custom API responses with Mocky

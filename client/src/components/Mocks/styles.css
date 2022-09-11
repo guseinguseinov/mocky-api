@@ -1,5 +1,6 @@
-.container {}
-
-.description {
-    max-width: 150px;
+.container {
+    margin: 30px auto;
+    background-color: transparent;
+    overflow-x: auto;
+    max-width: 1000px;
 }

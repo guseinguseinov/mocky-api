@@ -55,7 +55,7 @@ const NewMockForm = () => {
             message.success("New mocky api generated!")
             navigate('/my-mocks');
         } catch (error) {
-            console.log(error.response.data.message);
+            console.log(error);
             message.error(error.response.data.message);
         } finally {
             setSubmitting(false);

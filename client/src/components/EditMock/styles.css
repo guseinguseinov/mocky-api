@@ -10,3 +10,12 @@
 .title {
     margin-top: 20px;
 }
+
+
+@media screen and (max-width: 660px) {
+    .new-mock-container {
+        padding: 50px 50px 0 50px;
+        margin: 0 auto;
+        width: 95%;
+    }
+}

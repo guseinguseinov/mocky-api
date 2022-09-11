@@ -4,8 +4,8 @@ import EditMock from './components/EditMock';
 import Mocks from './components/Mocks/';
 import NewMock from './components/NewMock/';
 import DeleteMock from './components/DeleteMock';
-
 import './styles.css';
+
 
 function App() {
   return (

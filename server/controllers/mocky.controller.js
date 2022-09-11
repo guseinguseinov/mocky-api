@@ -73,11 +73,23 @@ const mockyCtrl = {
         if (!mocky) return res.status(404).json(generateJson(404, "No mocky found!", null));
 
         let resBody = mocky.httpResBody;
-        res.status(mocky.httpCode)
-            .set({
-                'Content-Type': mocky.resContentType,
-                ...mocky.httpHeader,
-            });
+
+        // res.charset = mocky.charset;
+        res.status(mocky.httpCode);
+        res.set({ ...mocky.httpHeader });
+        res.set('Content-Type', `${mocky.resContentType}; charset=${mocky.charset}`)
+
+
+        if (mocky.charset != 'UTF-8') {
+            let jsonBuffer;
+            if (mocky.resContentType == 'application/json') {
+                let jsonString = JSON.stringify(resBody);
+                jsonBuffer = Buffer.from(jsonString, 'latin1');
+            } else {
+                jsonBuffer = Buffer.from(resBody.content, 'latin1');
+            }
+            return res.send(jsonBuffer);
+        }
 
         if (mocky.resContentType == 'application/json') {
             return res.json(resBody);
