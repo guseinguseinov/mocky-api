@@ -1,0 +1,23 @@
+version: '3'
+
+services: 
+  mongo: 
+    image: mongo
+    restart: always
+    ports: 
+     - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: mocky
+      MONGO_INITDB_ROOT_USERNAME: gusein
+      MONGO_INITDB_ROOT_PASSWORD: 12345
+  server:   
+    build:
+      context: server
+    ports:
+      - "8080:8080"
+    restart: always
+    environment:
+      - PORT=8080
+      - CLIENT_URL=http://localhost:3000
+      - NODE_ENV=production
+      - DB_LOCAL=mongodb://gusein:12345@mongo:27017/
