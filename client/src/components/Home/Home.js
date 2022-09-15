@@ -16,10 +16,8 @@ function Home() {
             setToken(data.data);
         }
 
-        const token = getCookie();
-        if (!token) {
-            authenticateToken();
-        }
+        authenticateToken();
+
     }, []);
 
     return (

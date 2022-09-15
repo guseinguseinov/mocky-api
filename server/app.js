@@ -10,7 +10,7 @@ import mockyRoute from './routers/mockyRoute.js';
 import notFound from './middlewares/notFound.js';
 config();
 
-await mongoose.connect(process.env.DB_LOCAL);
+await mongoose.connect(process.env.DB_LOCAL, { useNewUrlParser: true });
 
 const app = express();
 
