@@ -18,6 +18,11 @@ services:
     restart: always
     environment:
       - PORT=8080
-      - CLIENT_URL=http://localhost:3000
+      - CLIENT_URL=http://localhost
       - NODE_ENV=production
       - DB_LOCAL=mongodb://gusein:12345@mongo:27017/
+  client: 
+    build: 
+      context: client
+    ports: 
+      - "80:80"
