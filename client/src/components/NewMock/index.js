@@ -12,16 +12,18 @@ const NewMock = () => {
     return (
         <>
             <ProtectedRoute>
-                <CustomHeader />
-                <div className='title'>
-                    <Title>Design your mock</Title>
-                </div>
+                <div>
+                    <CustomHeader />
+                    <div className='title'>
+                        <Title>Design your mock</Title>
+                    </div>
 
-                <div className='new-mock-container'>
-                    <NewMockForm />
-                </div>
+                    <div className='new-mock-container'>
+                        <NewMockForm />
+                    </div>
 
-                <Footer />
+                    <Footer />
+                </div>
             </ProtectedRoute>
         </>
     );

@@ -5,11 +5,9 @@ import crypto from 'crypto';
 const homeCtrl = {
     async getHome(req, res) {
         let { userToken = null } = req.cookies;
-        console.log(userToken);
         if (!userToken) {
             userToken = crypto.randomBytes(64).toString('base64');
             res.cookie('userToken', userToken, {
-                // expires: 365 * 20,
                 maxAge: 60 * 60 * 24 * 1000 * 365 * 20,
             });
 
@@ -24,7 +22,6 @@ const homeCtrl = {
             if (!user) {
                 userToken = crypto.randomBytes(64).toString('base64');
                 res.cookie('userToken', userToken, {
-                    // expires: 365 * 20,
                     maxAge: 60 * 60 * 24 * 1000 * 365 * 20,
                 });
 

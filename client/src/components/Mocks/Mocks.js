@@ -1,6 +1,6 @@
 import axios from "../../lib/axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { Table, Tag, Space, Button, Popover } from "antd";
 import { FileSearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { timeAgo } from '../../lib/timeAgo';
@@ -65,7 +65,9 @@ function MyMocks() {
     useEffect(() => {
         async function getMocks() {
             setSubmitting(true);
-            const { data } = await axios.get('mocky');
+
+            var { data } = await axios.get('mocky');
+
             setMocks(data.data);
             setSubmitting(false);
         }

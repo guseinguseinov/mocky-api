@@ -17,7 +17,6 @@ function DeleteMockPrimary() {
     async function deleteMock() {
         try {
             setSubmitting(true);
-            console.log(mock.id);
             const deletedElem = await axios.delete(`mocky/delete/${mock.id}`);
         }
         catch (error) {

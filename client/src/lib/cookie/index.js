@@ -1,3 +1,4 @@
+
 function getCookie() {
     const token = document.cookie
         .split("; ")

@@ -22,7 +22,6 @@ function Mocks() {
                 setSubmitting(true);
                 const { data } = await axios.get(`/mocky/${params.id}`);
                 setMock(data.data);
-                console.log(data.data);
                 form.setFieldsValue({
                     name: data.data.name,
                     httpCode: data.data.httpCode,

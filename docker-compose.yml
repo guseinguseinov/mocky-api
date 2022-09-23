@@ -26,3 +26,4 @@ services:
       context: client
     ports: 
       - "80:80"
+    restart: always

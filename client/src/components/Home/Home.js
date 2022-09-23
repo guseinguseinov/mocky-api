@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Footer from "../Footer/Footer";
 import CustomHeader from "../Header/Header";
 import axios from "../../lib/axios";
+import getUserToken, { setCookie } from "../../lib/cookie";
 import './styles.css';
-import { useEffect, useState } from "react";
-import getCookie from "../../lib/cookie";
 
 
 function Home() {
@@ -13,10 +13,12 @@ function Home() {
     useEffect(() => {
         async function authenticateToken() {
             const { data } = await axios.get('/');
+            // localStorage.setItem("userToken", data.data);
             setToken(data.data);
         }
-
-        authenticateToken();
+        if (!getUserToken()) {
+            authenticateToken();
+        }
 
     }, []);
 
